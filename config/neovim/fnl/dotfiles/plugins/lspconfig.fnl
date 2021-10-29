@@ -48,19 +48,6 @@
                                 :texthl hl
                                 :numhl ""}))))))
 
-
-; (util.with-which-key
-;   (fn [wk]
-;     (wk.register {:c {:name "Code"
-;                       :r ["<cmd>lua require('lspsaga.rename').rename()<cr>" "Rename"]
-;                       :f ["<cmd>lua vim.lsp.buf.formatting()<cr>" "Format"]}}
-;                  {:prefix "<leader>"})
-;     (wk.register {:a ["<cmd>lua require('lspsaga.codeaction').code_action()<cr>" "Code Action"]}
-;                  {:prefix "<leader>"})
-;     (wk.register {:g {:d ["<cmd>lua vim.lsp.buf.definition()<cr>" "Go to Definition"]
-;                       :D ["<cmd>lua vim.lsp.buf.declaration()<cr>" "Go to Declaration"]}}
-;                  {:mode "n"})))
-
 (util.map-group {:prefix :<leader>}
                 {:c {:name "Code"
                      :f ["<cmd>lua vim.lsp.buf.formatting()<cr>" "Format"]
@@ -70,22 +57,3 @@
 
 (util.map-group {:mode :n}
                 {:g {:d ["<cmd>lua vim.lsp.buf.definition()<cr>" "Go to Definition"]}})
-
-
-; (util.map-prefix :<localleader> :r ["<cmd>lua vim.lsp.buf.rename()<cr>" "Rename"])
-
-; (util.map-prefix :<leader> :c {:name "Code"}
-;                           :r ["<cmd>lua vim.lsp.buf.rename()<cr>" "Rename"]
-;                           :f ["<cmd>lua vim.lsp.buf.formatting()<cr>" "Format"])
-
-
-    ;; https://www.chrisatmachine.com/Neovim/27-native-lsp/
-    ; (map :gd "lua vim.lsp.buf.definition()")
-    ; (map :gD "lua vim.lsp.buf.declaration()")
-    ; (map :gr "lua vim.lsp.buf.references()")
-    ; (map :gi "lua vim.lsp.buf.implementation()")
-    ; (map :<c-k> "lua vim.lsp.buf.signature_help()")
-    ; (map :<c-n> "lua vim.lsp.diagnostic.goto_prev()")
-    ; (map :<c-p> "lua vim.lsp.diagnostic.goto_next()")
-
-    ; (map :<leader>lr "lua vim.lsp.buf.rename()")

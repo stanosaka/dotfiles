@@ -89,34 +89,10 @@
   (builtin.lsp_code_actions (code-actions-theme)))
 
 (util.noremap :n :<c-f> "<cmd>Telescope live_grep<cr>")
-
 (util.noremap :n :<c-p> "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy())<cr>")
-
-; (util.with-whick-key
-;   (fn []
-;     (wk.register {:g {:r [lsp-references "Find References"]}}
-;                  {:mode "n"})
-;     (wk.register {:f {:name "+find"
-;                       ; :f ["<cmd>Telescope find_files hidden=true<cr>" "Find file"]
-;                       :f [find-files "Find file"]
-;                       :r ["<cmd>Telescope oldfiles<cr>" "Recent files"]
-;                       :g ["<cmd>Telescope live_grep<cr>" "Live Grep"]
-;                       :m ["<cmd>Telescope keymaps<cr>" "Mappings"]
-;                       :c ["<cmd>Telescope commands<cr>" "Commands"]
-;                       :C ["<cmd>Telescope command_history<cr>" "Command history"]
-;                       :q ["<cmd>Telescope quickfix<cr>" "Quickfix"]
-;                       :s ["<cmd>Telescope lsp_document_symbols<cr>" "Document symbols"]
-;                       :S ["<cmd>Telescope lsp_workspace_symbols<cr>" "Workspace symbols"]}}
-;                  {:prefix "<leader>"})))
-
-
-; (util.map-group {:<c-p> [find-files]})
 
 (util.map-group {:mode :n}
                 {:g {:r [lsp-references "Find References"]}})
-                        ; :D ["<cmd>lua vim.lsp.buf.declaration()<cr>" "Go to Declaration"]
-                        ; :r ["<cmd>lua vim.lsp.buf.references()<cr>" "Go to References"]
-                        ; :i ["<cmd>lua vim.lsp.buf.implementation()<cr>" "Go to Implementation"]}})
 
 (util.map-group {:prefix :<leader>}
                 {:f {:name "+Files"

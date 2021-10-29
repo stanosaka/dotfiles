@@ -1,11 +1,5 @@
 (module dotfiles.plugins.misc
-  {autoload {nvim aniseed.nvim
-             nu aniseed.nvim.util
-             icons nvim-web-devicons}})
-
-;; FZF
-(set nvim.g.fzf_layout {:down "40%"})
-
+  {autoload {nvim aniseed.nvim}})
 
 ;; JSX plugin (syntax highlight)
 (set nvim.g.vim_jsx_pretty_highlight_close_tag 1)

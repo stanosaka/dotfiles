@@ -22,8 +22,6 @@
 (require :dotfiles.plugins.treesitter)
 (require :dotfiles.plugins.trouble)
 (require :dotfiles.plugins.which-key)
-; (require :dotfiles.plugins.formatter)
-; (require :dotfiles.plugins.lspsaga)
 ; (require :dotfiles.plugins.material)
 
 ;; Non-lua plugin options

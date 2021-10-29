@@ -27,11 +27,6 @@
     (when loaded?
       (which-key.register mappings opts))))
 
-; (defn map-prefix [prefix mappings]
-;   (let [(loaded? which-key) (pcall #(require :which-key))]
-;     (when loaded?
-;       (which-key.register mappings {:prefix prefix}))))
-
 (defn augroup [name autocmds]
   (nvim.ex.augroup name)
   (nvim.ex.autocmd_)

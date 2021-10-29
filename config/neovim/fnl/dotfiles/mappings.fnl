@@ -12,12 +12,6 @@
 ;; Delete hidden buffers.
 ; (util.noremap :n :<leader>bo ":call DeleteHiddenBuffers()<cr>")
 
-;; Correct to first spelling suggestion.
-; (util.noremap :n :<leader>zz ":normal! 1z=<cr>")
-
-;; Trim trialing whitespace.
-; (util.noremap :n :<leader>bt ":%s/\\s\\+$//e<cr>")
-
 ;; Select mode trick
 ;; NOTE: Normal mapping: enters select mode with the word nearest the cursor selected.
 ;; NOTE: You can then type your replacement for the selected word and use the:
@@ -80,12 +74,6 @@
 (nvim.set_keymap :o :<localleader>b "<Plug>CamelCaseMotion_b" {:silent true})
 (nvim.set_keymap :x :<localleader>b "<Plug>CamelCaseMotion_b" {:silent true})
 
-;; FZF (NOTE: replaced by Telescope)
-; (util.noremap :n :<c-p> ":Files<cr>")
-
-;; Magit
-(util.noremap :n :<leader>m ":Magit<cr>")
-
 ;; Tabularize
 (nvim.set_keymap :n :<leader>t= ":Tabularize /=<cr>" {})
 (nvim.set_keymap :v :<leader>t= ":Tabularize /=<cr>" {})
@@ -93,14 +81,6 @@
 (nvim.set_keymap :v :<leader>t: ":Tabularize /:\\zs<cr>" {})
 (nvim.set_keymap :n :<leader>t<bar> ":Tabularize /<bar><cr>" {})
 (nvim.set_keymap :v :<leader>t<bar> ":Tabularize /<bar><cr>" {})
-
-;; Normal mode
-; (util.map-group {:mode :n}
-;                 {:g {:c ["<cmd>lua vim.lsp.buf.definition()<cr>" "Go to Definition"]}})
-
-;; Visual mode
-; (util.map-group {:mode :v}
-;                 {:g {:c ["<cmd>lua vim.lsp.buf.definition()<cr>" "Go to Definition"]}})
 
 ;; Localleader (Normal)
 (util.map-group {:prefix :<localleader>}
@@ -111,20 +91,6 @@
 (util.map-group {:prefix :<localleader>
                  :mode :v}
                 {:s [":s//g<left><left>" "Replace"]})
-
-;; Code Actions (nvim-code-action-menu)
-; (util.noremap :n :<localleader>a ":CodeActionMenu<cr>")
-
-;; NERDTree
-; (util.noremap :n :<c-b> ":NERDTreeToggle<cr>")
-
-;; <Tab> & <S-Tab> to navigate the completion menu
-; (nvim.set_keymap :i :<tab> "pumvisible() ? \"\\<C-n>\" : \"\\<Tab>\"" {:noremap true :expr true})
-; (nvim.set_keymap :i :<s-tab> "pumvisible() ? \"\\<C-p>\" : \"\\<Tab>\"" {:noremap true :expr true})
-
-;; Find and replace
-; map('n', '<Leader>s', ':%s//g<Left><Left>', { noremap = true })
-; map('v', '<Leader>s', ':s//g<Left><Left>', { noremap = true })
 
 ;; Find and replace all occurences of focused word, in current buffer
 ; map('n', '<Leader>S', ':%s/\\<<C-r><C-w>\\>/', { noremap = true })

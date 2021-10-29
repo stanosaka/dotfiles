@@ -38,16 +38,6 @@
     };
   };
 
-#   melange = buildVimPlugin {
-#     name = "melange";
-#     src = builtins.fetchTarball {
-#       name   = "melange-a7f6cc4";
-#       url    = "https://github.com/savq/melange/archive/a7f6cc4.tar.gz";
-#       sha256 = "sha256:1y4l47v563zknif37hsyvkq4bn918r8swnrsnykljgy95vs3p53a";
-#     };
-#     nativeBuildInputs = [ pkgs.neovim ];
-#   };
-
 #   sniprun =
 #   let
 #     sniprun-bin = rustPlatform.buildRustPackage rec {
@@ -74,23 +64,4 @@
 #       ln -s ${sniprun-bin}/bin/sniprun target/release/sniprun
 #     '';
 #   };
-
-#   stabilize-nvim = buildVimPlugin {
-#     name = "stabilize-nvim";
-#     src = builtins.fetchTarball {
-#       name   = "stabilize-nvim-c38a133";
-#       url    = "https://github.com/luukvbaal/stabilize.nvim/archive/c38a133.tar.gz";
-#       sha256 = "sha256:1wighg1wf388kw9c8g7ykv0nmssqw7x3jalb7qvmsw05fppd4aal";
-#     };
-#   };
-
-  # impatient-nvim = buildVimPlugin {
-  #   name = "impatient-nvim";
-  #   src = builtins.fetchTarball {
-  #     name   = "impatient-nvim-561b86e";
-  #     url    = "https://github.com/lewis6991/impatient.nvim/archive/561b86e.tar.gz";
-  #     sha256 = "01yx763h5mc5fxdzyyhw8p8hq3l66m7spdqw2dyb83n78b6l11m6";
-  #   };
-  #   nativeBuildInputs = [ pkgs.git ];
-  # };
 }

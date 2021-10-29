@@ -2,6 +2,7 @@
   {autoload {lualine lualine
              codedark lualine.themes.codedark}})
 
+;; Modified to look like lightline's "codedark" theme
 (let [green     :#608B4E
       pink      :#C586C0
       lightred  :#D16969
