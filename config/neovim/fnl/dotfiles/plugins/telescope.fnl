@@ -1,0 +1,133 @@
+(module dotfiles.plugin.telescope
+  {autoload {nvim aniseed.nvim
+             util dotfiles.util
+             telescope telescope
+             actions telescope.actions
+             builtin telescope.builtin
+             themes telescope.themes}})
+
+(telescope.setup
+  {:defaults
+   {:mappings {:i {:<esc> actions.close
+                   :<c-j> actions.move_selection_next
+                   :<c-k> actions.move_selection_previous}}
+    :vimgrep_arguments ["rg" "--color=never" "--no-heading"
+                        "--with-filename" "--line-number" "--column"
+                        "--smart-case" "--hidden" "--follow"
+                        "-g" "!.git/"
+                        "-g" "!*.lock"]}})
+
+(defn no-preview-theme []
+  (themes.get_dropdown {:borderchars
+                        {:prompt ["─" "│" " " "│" "┌" "┐" "│" "│"]
+                         :results ["─" "│" "─" "│" "├" "┤" "┘" "└"]
+                         :preview [ "─" "│" "─" "│" "┌" "┐" "┘" "└"]}
+                        :width 0.8
+                        :previewer false
+                        :prompt_title false}))
+
+(defn centered-theme []
+  (themes.get_dropdown {:borderchars
+                        {:prompt ["─" "│" " " "│" "┌" "┐" "│" "│"]
+                         :results ["─" "│" "─" "│" "├" "┤" "┘" "└"]
+                         :preview [ "─" "│" "─" "│" "┌" "┐" "┘" "└"]}
+                        ; :layout_config {:mirror true}
+                        ; :previewer false
+                        :prompt_title false}))
+
+(defn cursor-relative-theme []
+  (themes.get_cursor {:borderchars
+                        {:prompt ["─" "│" " " "│" "┌" "┐" "│" "│"]
+                         :results ["─" "│" "─" "│" "├" "┤" "┘" "└"]
+                         :preview [ "─" "│" "─" "│" "┌" "┐" "┘" "└"]}
+                        :layout_config {:width 0.8
+                                        :preview_width 0.5}
+                        ; :previewer false
+                        :prompt_title false}))
+
+(defn code-actions-theme []
+  (themes.get_cursor {:borderchars
+                        {:prompt ["─" "│" " " "│" "┌" "┐" "│" "│"]
+                         :results ["─" "│" "─" "│" "├" "┤" "┘" "└"]
+                         :preview [ "─" "│" "─" "│" "┌" "┐" "┘" "└"]}
+                        :layout_config {:width 0.2}
+                        :previewer false
+                        :prompt_title false}))
+
+
+; (util.lnnoremap :ff "Telescope find_files hidden=true")
+; (util.lnnoremap :f- "Telescope file_browser")
+; (util.lnnoremap :fg "Telescope live_grep")
+; (util.lnnoremap :* "Telescope grep_string")
+; (util.lnnoremap :fb "Telescope buffers")
+; (util.lnnoremap :fH "Telescope help_tags")
+; (util.lnnoremap :fm "Telescope keymaps")
+; (util.lnnoremap :fM "Telescope marks")
+; (util.lnnoremap :fh "Telescope oldfiles")
+; (util.lnnoremap :ft "Telescope filetypes")
+; (util.lnnoremap :fc "Telescope commands")
+; (util.lnnoremap :fC "Telescope command_history")
+; (util.lnnoremap :fq "Telescope quickfix")
+; (util.lnnoremap :fl "Telescope loclist")
+
+;; TODO: review and check alternative themes
+; (util.lnnoremap :fsa "Telescope lsp_code_actions")
+; (util.lnnoremap :fsi "Telescope lsp_implementations")
+; (util.lnnoremap :fsr "Telescope lsp_references")
+; (util.lnnoremap :fsS "Telescope lsp_document_symbols")
+; (util.lnnoremap :fss "Telescope lsp_workspace_symbols")
+
+(defn find-files []
+  ; (builtin.find_files (themes.get_ivy {:previewer false})))
+  (builtin.find_files (themes.get_ivy)))
+
+(defn lsp-references []
+  ; (builtin.lsp_references (cursor-relative-theme)))
+  (builtin.lsp_references (centered-theme)))
+
+(defn code-action []
+  (builtin.lsp_code_actions (code-actions-theme)))
+
+(util.noremap :n :<c-f> "<cmd>Telescope live_grep<cr>")
+
+(util.noremap :n :<c-p> "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_ivy())<cr>")
+
+; (util.with-whick-key
+;   (fn []
+;     (wk.register {:g {:r [lsp-references "Find References"]}}
+;                  {:mode "n"})
+;     (wk.register {:f {:name "+find"
+;                       ; :f ["<cmd>Telescope find_files hidden=true<cr>" "Find file"]
+;                       :f [find-files "Find file"]
+;                       :r ["<cmd>Telescope oldfiles<cr>" "Recent files"]
+;                       :g ["<cmd>Telescope live_grep<cr>" "Live Grep"]
+;                       :m ["<cmd>Telescope keymaps<cr>" "Mappings"]
+;                       :c ["<cmd>Telescope commands<cr>" "Commands"]
+;                       :C ["<cmd>Telescope command_history<cr>" "Command history"]
+;                       :q ["<cmd>Telescope quickfix<cr>" "Quickfix"]
+;                       :s ["<cmd>Telescope lsp_document_symbols<cr>" "Document symbols"]
+;                       :S ["<cmd>Telescope lsp_workspace_symbols<cr>" "Workspace symbols"]}}
+;                  {:prefix "<leader>"})))
+
+
+; (util.map-group {:<c-p> [find-files]})
+
+(util.map-group {:mode :n}
+                {:g {:r [lsp-references "Find References"]}})
+                        ; :D ["<cmd>lua vim.lsp.buf.declaration()<cr>" "Go to Declaration"]
+                        ; :r ["<cmd>lua vim.lsp.buf.references()<cr>" "Go to References"]
+                        ; :i ["<cmd>lua vim.lsp.buf.implementation()<cr>" "Go to Implementation"]}})
+
+(util.map-group {:prefix :<leader>}
+                {:f {:name "+Files"
+                     :f [find-files "Find"]
+                     :r ["<cmd>Telescope oldfiles<cr>" "Recent"]
+                     :g ["<cmd>Telescope live_grep<cr>" "Live Grep"]}
+                 :l {:name "+LSP"
+                     :s ["<cmd>Telescope lsp_document_symbols<cr>" "Document symbols"]
+                     :S ["<cmd>Telescope lsp_workspace_symbols<cr>" "Workspace symbols"]
+                     :q ["<cmd>Telescope quickfix<cr>" "Quickfix"]}
+                 :h {:name "+Help"
+                     :m ["<cmd>Telescope keymaps<cr>" "Mappings"]
+                     :c ["<cmd>Telescope commands<cr>" "Commands"]
+                     :C ["<cmd>Telescope command_history<cr>" "Command history"]}})
