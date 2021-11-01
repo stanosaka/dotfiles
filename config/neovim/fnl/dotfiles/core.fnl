@@ -54,9 +54,8 @@
 (nvim.ex.filetype "plugin indent on")
 
 ;; theme
-(set nvim.g.gruvbox_italic 1)
-(set nvim.g.gruvbox_contrast_dark :hard)
 (set nvim.o.background :dark)
+(set nvim.g.gruvbox_contrast_dark :hard)
 (nvim.ex.colorscheme :gruvbox)
 
 ;; autocmds

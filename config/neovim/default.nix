@@ -11,7 +11,7 @@ let
 
   myVimPlugins = with plugins; [
   # UI
-    gruvbox
+    gruvbox-nvim
     lualine-nvim
     neoscroll-nvim
     nvim-colorizer-lua
