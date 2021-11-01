@@ -46,9 +46,10 @@ let
     vim-repeat                       # repeat plugin commands with (.)
     vim-ripgrep                      # blazing fast search using ripgrep
     vim-sensible                     # sensible defaults
-    vim-signature                    # FIXME: what is it?
+    vim-signature                    # display marks as signs
     vim-surround                     # quickly edit surroundings (brackets, html tags, etc)
     which-key-nvim                   # spacemacs-like menu and key bindings
+    vim-submode
     undotree
     # impatient-nvim                   # speed up loading lua modules
     # nvim-notify                      # used with `sniprun`
@@ -70,23 +71,27 @@ let
     nvim-lspconfig
     nvim-lsputils                    # used for code actions
     nvim-treesitter
+    playground                       # tree-sitter playground
     purescript-vim
     trouble-nvim                     # diagnostic list
     vim-css-color                    # preview css colors
     vim-easy-align
     vim-jsx-pretty
-    vim-matchup
+    # vim-matchup
     vim-nix                          # nix support (highlighting, etc)
-    vim-parinfer
+    parinfer-rust
     vim-solidity
+    vim-sexp
     # nvim-spectre
     # sniprun                          # evaluate code snippets
     # symbols-outline-nvim             # TODO: use `aerial.nvim` instead
+    janet-vim
 
   # TEMP
     vim-better-sml                   # SML plugin; NOTE: only for course
 
   # MISC
+    neorg
     vimwiki                          # Notes
     neuron-nvim                      # Also notes (testing)
 
@@ -97,7 +102,6 @@ let
     # ghcid                          # ghcid for Haskell
     # multiple-cursors               # Multiple cursors selection, etc
     # neomake                        # run programs asynchronously and highlight errors
-    # neorg
     # nerdcommenter                  # code commenter
     # quickfix-reflector-vim         # make modifications right in the quickfix window
     # tender-vim                     # a clean dark theme
@@ -124,6 +128,7 @@ in
   };
 
   xdg.configFile = {
+    "nvim/queries".source = ./queries;
     "nvim/fnl".source = ./fnl;
     "nvim/ftplugin".source = ./ftplugin;
   };

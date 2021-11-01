@@ -29,13 +29,48 @@
     nativeBuildInputs = [ pkgs.mlton ];
   };
 
-  material-nvim = buildVimPlugin {
-    name = "material-nvim";
+  vim-submode = buildVimPlugin {
+    name = "vim-submode";
     src = builtins.fetchTarball {
-      name   = "material-nvim-f8e663a";
-      url    = "https://github.com/marko-cerovac/material.nvim/archive/f8e663a.tar.gz";
-      sha256 = "0wvcc8x9k1mpi2xgdk1ll571h5cbf8kx6jcs1cabkrf5s28mf9rb";
+      name   = "vim-submode-d29de4f";
+      url    = "https://github.com/kana/vim-submode/archive/d29de4f.tar.gz";
+      sha256 = "sha256:1qf0ryyjbv3yw916dnvqlzqvpskg2sbkwn46a2zph71p16sg6cp7";
     };
+  };
+
+  janet-vim = buildVimPlugin {
+    name = "janet-vim";
+    src = builtins.fetchTarball {
+      name   = "janet-vim-294538b";
+      url    = "https://github.com/janet-lang/janet.vim/archive/294538b.tar.gz";
+      sha256 = "sha256:1x81n4sdxza5hx3fg2pnzkj4f1sv87i7spldg8rsqpglx7da4clx";
+    };
+    nativeBuildInputs = [ pkgs.janet ];
+  };
+
+  parinfer-rust =
+  let
+    parinfer-src = builtins.fetchTarball {
+      name   = "parinfer-rust-b6d5d1c";
+      url    = "https://github.com/eraserhd/parinfer-rust/archive/b6d5d1c.tar.gz";
+      sha256 = "sha256:04n9lz9r0kcayy0aynrwk3vffr8hdhx13zr05qsk0j679jizh8ks";
+    };
+    parinfer-rust-bin = rustPlatform.buildRustPackage rec {
+      name = "parinfer-rust-bin";
+      pname = "parinfer-rust-bin";
+      src = parinfer-src;
+      cargoSha256 = "sha256-zQ+ZtpJLYYFTxsPtUaaxPMoQIGtQytVY581WD31m2/E=";
+      # doCheck = false;
+    };
+  in
+  buildVimPlugin {
+    name = "parinfer-rust";
+    src = parinfer-src;
+    buildPhase = ''
+      mkdir -p ./target/release
+      ln -s ${parinfer-rust-bin}/bin/parinfer-rust ./target/release/
+      ln -s ${parinfer-rust-bin}/lib/libparinfer_rust.so ./target/release/
+    '';
   };
 
 #   sniprun =
@@ -64,4 +99,5 @@
 #       ln -s ${sniprun-bin}/bin/sniprun target/release/sniprun
 #     '';
 #   };
+
 }

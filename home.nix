@@ -73,6 +73,7 @@ let
     racket
     rustup
     fennel               # Fennel lang (for neovim config)
+    janet
     clojure-lsp
     nodejs
     yarn
@@ -178,6 +179,7 @@ in
     zsh.enable = true;
     zsh.initExtra = ''
       export PATH="$PATH":"$HOME/.npm-packages/bin"
+      export JANET_PATH="$HOME/.janet"
       export KEYTIMEOUT=1
       any-nix-shell zsh --info-right | source /dev/stdin
       bindkey -v
@@ -190,6 +192,7 @@ in
     zsh.shellAliases = {
       gs = "git status";
       ww = "vim -c VimwikiIndex";
+      jr = ''janet -e "(import spork/netrepl) (netrepl/server)"'';
     };
 
     git.enable = true;

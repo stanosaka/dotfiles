@@ -28,3 +28,9 @@
       :html
       :haskell
       :rust])
+
+;; vim-sexp
+(set nvim.g.sexp_filetypes "clojure,scheme,lisp,timl,fennel,janet")
+
+;; Bclose (disable default binding)
+(set nvim.g.bclose_no_plugin_maps 1)
