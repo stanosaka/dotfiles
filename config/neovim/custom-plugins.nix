@@ -2,28 +2,21 @@
 
 {
   vim-buftabline = buildVimPlugin {
-    name = "asyncrun-vim";
-    src = builtins.fetchTarball {
-      name   = "Buftabline-73b9ef5";
-      url    = "https://github.com/ap/vim-buftabline/archive/73b9ef5.tar.gz";
+    name = "vim-buftabline";
+    src = fetchFromGitHub {
+      owner  = "ap";
+      repo   = "vim-buftabline";
+      rev    = "73b9ef5";
       sha256 = "1vs4km7fb3di02p0771x42y2bsn1hi4q6iwlbrj0imacd9affv5y";
-    };
-  };
-
-  vim-ripgrep = buildVimPlugin {
-    name = "vim-ripgrep";
-    src = builtins.fetchTarball {
-      name   = "RipGrep-v1.0.2";
-      url    = "https://github.com/jremmen/vim-ripgrep/archive/v1.0.2.tar.gz";
-      sha256 = "1by56rflr0bmnjvcvaa9r228zyrmxwfkzkclxvdfscm7l7n7jnmh";
     };
   };
 
   vim-better-sml = buildVimPlugin {
     name = "vim-better-sml";
-    src = builtins.fetchTarball {
-      name   = "vim-better-sml-1f36431";
-      url    = "https://github.com/jez/vim-better-sml/archive/1f36431.tar.gz";
+    src = fetchFromGitHub {
+      owner  = "jez";
+      repo   = "vim-better-sml";
+      rev    = "1f36431";
       sha256 = "0v5wbbjxz7k3ifpnl5l06zkwp3wfcs52bzwhs9i89f9g1wkkgq74";
     };
     nativeBuildInputs = [ pkgs.mlton ];
@@ -31,18 +24,20 @@
 
   vim-submode = buildVimPlugin {
     name = "vim-submode";
-    src = builtins.fetchTarball {
-      name   = "vim-submode-d29de4f";
-      url    = "https://github.com/kana/vim-submode/archive/d29de4f.tar.gz";
+    src = fetchFromGitHub {
+      owner  = "kana";
+      repo   = "vim-submode";
+      rev    = "d29de4f";
       sha256 = "sha256:1qf0ryyjbv3yw916dnvqlzqvpskg2sbkwn46a2zph71p16sg6cp7";
     };
   };
 
   janet-vim = buildVimPlugin {
     name = "janet-vim";
-    src = builtins.fetchTarball {
-      name   = "janet-vim-294538b";
-      url    = "https://github.com/janet-lang/janet.vim/archive/294538b.tar.gz";
+    src = fetchFromGitHub {
+      owner  = "janet-lang";
+      repo   = "janet.vim";
+      rev    = "294538b";
       sha256 = "sha256:1x81n4sdxza5hx3fg2pnzkj4f1sv87i7spldg8rsqpglx7da4clx";
     };
     nativeBuildInputs = [ pkgs.janet ];
@@ -50,16 +45,17 @@
 
   parinfer-rust =
   let
-    parinfer-src = builtins.fetchTarball {
-      name   = "parinfer-rust-b6d5d1c";
-      url    = "https://github.com/eraserhd/parinfer-rust/archive/b6d5d1c.tar.gz";
+    parinfer-src = fetchFromGitHub {
+      owner  = "eraserhd";
+      repo   = "parinfer-rust";
+      rev    = "b6d5d1c";
       sha256 = "sha256:04n9lz9r0kcayy0aynrwk3vffr8hdhx13zr05qsk0j679jizh8ks";
     };
     parinfer-rust-bin = rustPlatform.buildRustPackage rec {
-      name = "parinfer-rust-bin";
       pname = "parinfer-rust-bin";
+      version = "b6d5d1c";
       src = parinfer-src;
-      cargoSha256 = "sha256-zQ+ZtpJLYYFTxsPtUaaxPMoQIGtQytVY581WD31m2/E=";
+      cargoSha256 = "sha256-Ez4LkM1vO7AwsDSkZeVaS4gcTZ5+lI4aLDABfH2Sk9M=";
       # doCheck = false;
     };
   in
@@ -71,6 +67,17 @@
       ln -s ${parinfer-rust-bin}/bin/parinfer-rust ./target/release/
       ln -s ${parinfer-rust-bin}/lib/libparinfer_rust.so ./target/release/
     '';
+  };
+
+  nvim-treesitter = buildVimPlugin {
+    pname = "nvim-treesitter";
+    version = "1ca3213";
+    src = fetchFromGitHub {
+      owner  = "nvim-treesitter";
+      repo   = "nvim-treesitter";
+      rev    = "1ca3213";
+      sha256 = "sha256-sk6oacFJKQK6lJw/rFWqBSCAQz/XcW8Q269qIy+LsX8=";
+    };
   };
 
 #   sniprun =

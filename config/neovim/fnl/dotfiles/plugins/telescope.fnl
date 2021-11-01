@@ -7,17 +7,14 @@
              themes telescope.themes}})
 
 (telescope.setup
-  {:defaults {:mappings {:i {:<esc> actions.close}}
-              :<c-j> actions.move_selection_next
-              :<c-k> actions.move_selection_previous}
+  {:defaults {:mappings {:i {:<esc> actions.close
+                             :<c-j> actions.move_selection_next
+                             :<c-k> actions.move_selection_previous}}}
    :vimgrep_arguments ["rg" "--color=never" "--no-heading"
                        "--with-filename" "--line-number" "--column"
                        "--smart-case" "--hidden" "--follow"
                         "-g" "!.git/"
-                        "-g" "!*.lock"]
-   :extensions {:project {:base_dirs ["~/"]}}})
-
-(telescope.load_extension "project")
+                        "-g" "!*.lock"]})
 
 (defn no-preview-theme []
   (themes.get_dropdown {:borderchars

@@ -7,8 +7,6 @@ let
 
   plugins = pkgs.vimPlugins // customPlugins;
 
-  overriddenPlugins = with pkgs; [];
-
   myVimPlugins = with plugins; [
   # UI
     gruvbox-nvim
@@ -40,11 +38,9 @@ let
     tabular                          # align code verically (haskell etc)
     telescope-fzy-native-nvim        # FIXME: what is it?
     telescope-nvim
-    telescope-project-nvim           # FIXME: I don't use it
     toggleterm-nvim                  # floating termial; used only for lazygit for now
     vim-commentary                   # comment some code
     vim-repeat                       # repeat plugin commands with (.)
-    vim-ripgrep                      # blazing fast search using ripgrep
     vim-sensible                     # sensible defaults
     vim-signature                    # display marks as signs
     vim-surround                     # quickly edit surroundings (brackets, html tags, etc)
@@ -113,12 +109,15 @@ let
     # vim-gtfo                       # go to terminal or file manager
     # vim-mergetool                  # git mergetool for nvim
     # vim-tmux                       # syntax highlighting for tmux conf file and more
-  ] ++ overriddenPlugins;
+  ];
+
+  neovim-nightly = pkgs.callPackage ./nightly.nix {};
 in
 {
   programs.neovim = {
     enable       = true;
     extraConfig  = builtins.readFile ./init.vim;
+    package      = neovim-nightly;
     plugins      = myVimPlugins;
     viAlias      = true;
     vimAlias     = true;
