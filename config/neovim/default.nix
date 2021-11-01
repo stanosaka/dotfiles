@@ -49,6 +49,7 @@ let
     vim-signature                    # FIXME: what is it?
     vim-surround                     # quickly edit surroundings (brackets, html tags, etc)
     which-key-nvim                   # spacemacs-like menu and key bindings
+    undotree
     # impatient-nvim                   # speed up loading lua modules
     # nvim-notify                      # used with `sniprun`
 

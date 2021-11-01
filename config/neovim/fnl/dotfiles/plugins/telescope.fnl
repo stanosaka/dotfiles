@@ -7,15 +7,17 @@
              themes telescope.themes}})
 
 (telescope.setup
-  {:defaults
-   {:mappings {:i {:<esc> actions.close
-                   :<c-j> actions.move_selection_next
-                   :<c-k> actions.move_selection_previous}}
-    :vimgrep_arguments ["rg" "--color=never" "--no-heading"
-                        "--with-filename" "--line-number" "--column"
-                        "--smart-case" "--hidden" "--follow"
+  {:defaults {:mappings {:i {:<esc> actions.close}}
+              :<c-j> actions.move_selection_next
+              :<c-k> actions.move_selection_previous}
+   :vimgrep_arguments ["rg" "--color=never" "--no-heading"
+                       "--with-filename" "--line-number" "--column"
+                       "--smart-case" "--hidden" "--follow"
                         "-g" "!.git/"
-                        "-g" "!*.lock"]}})
+                        "-g" "!*.lock"]
+   :extensions {:project {:base_dirs ["~/"]}}})
+
+(telescope.load_extension "project")
 
 (defn no-preview-theme []
   (themes.get_dropdown {:borderchars
@@ -70,13 +72,6 @@
 ; (util.lnnoremap :fq "Telescope quickfix")
 ; (util.lnnoremap :fl "Telescope loclist")
 
-;; TODO: review and check alternative themes
-; (util.lnnoremap :fsa "Telescope lsp_code_actions")
-; (util.lnnoremap :fsi "Telescope lsp_implementations")
-; (util.lnnoremap :fsr "Telescope lsp_references")
-; (util.lnnoremap :fsS "Telescope lsp_document_symbols")
-; (util.lnnoremap :fss "Telescope lsp_workspace_symbols")
-
 (defn find-files []
   ; (builtin.find_files (themes.get_ivy {:previewer false})))
   (builtin.find_files (themes.get_ivy)))
@@ -95,15 +90,17 @@
                 {:g {:r [lsp-references "Find References"]}})
 
 (util.map-group {:prefix :<leader>}
-                {:f {:name "+Files"
+                {:f {:name "file"
                      :f [find-files "Find"]
                      :r ["<cmd>Telescope oldfiles<cr>" "Recent"]
                      :g ["<cmd>Telescope live_grep<cr>" "Live Grep"]}
-                 :l {:name "+LSP"
+                 :l {:name "lsp"
                      :s ["<cmd>Telescope lsp_document_symbols<cr>" "Document symbols"]
                      :S ["<cmd>Telescope lsp_workspace_symbols<cr>" "Workspace symbols"]
                      :q ["<cmd>Telescope quickfix<cr>" "Quickfix"]}
-                 :h {:name "+Help"
+                 :h {:name "help"
                      :m ["<cmd>Telescope keymaps<cr>" "Mappings"]
                      :c ["<cmd>Telescope commands<cr>" "Commands"]
-                     :C ["<cmd>Telescope command_history<cr>" "Command history"]}})
+                     :C ["<cmd>Telescope command_history<cr>" "Command history"]
+                     :h ["<cmd>Telescope help_tags<cr>" "Help Tags"]
+                     :H ["<cmd>Telescope highlights<cr>" "Highlights"]}})

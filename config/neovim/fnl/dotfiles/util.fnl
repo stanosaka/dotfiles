@@ -27,9 +27,12 @@
     (when loaded?
       (which-key.register mappings opts))))
 
-(defn augroup [name autocmds]
-  (nvim.ex.augroup name)
-  (nvim.ex.autocmd_)
-  (each [_ cmd (ipairs autocmds)]
-    (nvim.ex.autocmd (table.concat cmd " ")))
-  (nvim.ex.augroup :END))
+(defn cmd-fmt [cmd]
+  (string.format "<cmd>%s<cr>" cmd))
+
+;; Make mixed tables
+(defn tassign [table data]
+  (accumulate [xs table
+               k v (pairs data)]
+              (do (tset xs k v)
+                xs)))

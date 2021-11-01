@@ -5,5 +5,5 @@
 (trouble.setup {})
 
 (util.map-group {:prefix :<leader>}
-                {:l {:name "+LSP"
+                {:l {:name "+lsp"
                      :l ["<cmd>TroubleToggle<cr>" "List Toggle [Trouble]"]}})

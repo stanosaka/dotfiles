@@ -49,11 +49,10 @@
                                 :numhl ""}))))))
 
 (util.map-group {:prefix :<leader>}
-                {:c {:name "Code"
-                     :f ["<cmd>lua vim.lsp.buf.formatting()<cr>" "Format"]
-                     :r ["<cmd>lua vim.lsp.buf.rename()<cr>" "Rename"]}
-                 :l {:name "+LSP"
-                     :e ["<cmd> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })<cr>" "Line Errors"]}})
+                {:l {:name "lsp"}
+                    :e ["<cmd> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })<cr>" "Line Errors"]
+                    :f ["<cmd>lua vim.lsp.buf.formatting()<cr>" "Format"]
+                    :r ["<cmd>lua vim.lsp.buf.rename()<cr>" "Rename"]})
 
 (util.map-group {:mode :n}
                 {:g {:d ["<cmd>lua vim.lsp.buf.definition()<cr>" "Go to Definition"]}})

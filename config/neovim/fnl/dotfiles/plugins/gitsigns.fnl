@@ -7,7 +7,7 @@
 
 ;; Normal mode
 (util.map-group {:prefix :<leader>}
-                {:g {:name "+Git"
+                {:g {:name "git"
                      :s ["<cmd>lua require'gitsigns'.stage_hunk()<cr>" "Stage hunk"]
                      :u ["<cmd>lua require'gitsigns'.undo_stage_hunk()<cr>" "Undo staging"]
                      :r ["<cmd>lua require'gitsigns'.reset_hunk()<cr>" "Reset hunk"]
@@ -20,6 +20,6 @@
 ;; Visual mode
 (util.map-group {:mode :v
                  :prefix :<leader>}
-                {:g {:name "+Git"
+                {:g {:name "git"
                      :s ["<cmd>lua require'gitsigns'.stage_hunk({vim.fn.line('.'), vim.fn.line('v')})<cr>" "Stage"]
                      :r ["<cmd>lua require'gitsigns'.reset_hunk({vim.fn.line('.'), vim.fn.line('v')})<cr>" "Reset"]}})

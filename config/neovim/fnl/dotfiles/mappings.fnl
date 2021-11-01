@@ -23,30 +23,10 @@
 ; (util.noremap :i :§ "<c-o>gn<c-g>")
 ; (util.noremap :s :. "@." {:expr true})
 
-(nu.fn-bridge
-  :DeleteHiddenBuffers
-  :dotfiles.mappings :delete-hidden-buffers)
-
-(defn delete-hidden-buffers []
-  (let [visible-bufs (->> (nvim.fn.range 1 (nvim.fn.tabpagenr :$))
-                          (core.map nvim.fn.tabpagebuflist)
-                          (unpack)
-                          (core.concat))]
-    (->> (nvim.fn.range 1 (nvim.fn.bufnr :$))
-         (core.filter
-           (fn [bufnr]
-             (and (nvim.fn.bufexists bufnr)
-                  (= -1 (nvim.fn.index visible-bufs bufnr)))))
-         (core.run!
-           (fn [bufnr]
-             (nvim.ex.bwipeout bufnr))))))
-
 
 ;; Easy Buffer Navigation and manipulation
 (util.noremap :n :<leader>d "<cmd>Bclose<cr>")
 (util.noremap :n :<leader>D "<cmd>Bclose!<cr>")
-; (util.noremap :n :<leader>o "<cmd>%bd|e#<cr>") ; close all buffers(%), open last for editing(e#) : mnemonic 'o' -> only
-(util.noremap :n :<leader>o "<cmd>silent! call :DeleteHiddenBuffers<cr>")
 
 ;; Buffer cycling
 (util.noremap :n :<c-l> "<cmd>bnext<cr>")
@@ -75,25 +55,49 @@
 (nvim.set_keymap :x :<localleader>b "<Plug>CamelCaseMotion_b" {:silent true})
 
 ;; Tabularize
-(nvim.set_keymap :n :<leader>t= ":Tabularize /=<cr>" {})
-(nvim.set_keymap :v :<leader>t= ":Tabularize /=<cr>" {})
-(nvim.set_keymap :n :<leader>t: ":Tabularize /:\\zs<cr>" {})
-(nvim.set_keymap :v :<leader>t: ":Tabularize /:\\zs<cr>" {})
-(nvim.set_keymap :n :<leader>t<bar> ":Tabularize /<bar><cr>" {})
-(nvim.set_keymap :v :<leader>t<bar> ":Tabularize /<bar><cr>" {})
+; (nvim.set_keymap :n :<leader>t= ":Tabularize /=<cr>" {})
+; (nvim.set_keymap :v :<leader>t= ":Tabularize /=<cr>" {})
+; (nvim.set_keymap :n :<leader>t: ":Tabularize /:\\zs<cr>" {})
+; (nvim.set_keymap :v :<leader>t: ":Tabularize /:\\zs<cr>" {})
+; (nvim.set_keymap :n :<leader>t<bar> ":Tabularize /<bar><cr>" {})
+; (nvim.set_keymap :v :<leader>t<bar> ":Tabularize /<bar><cr>" {})
 
-;; Localleader (Normal)
-(util.map-group {:prefix :<localleader>}
-                {:s [":%s//g<left><left>" "Replace"]})
-                ; {:s (doto [":%s//g<left><left>" "Replace"] (tset :silent false))})
+;; Replace (Normal)
+(util.map-group {:prefix :<leader>}
+                {:r (util.tassign [":%s//g<left><left>" "Replace"] {:silent false})})
 
-;; Localleader (Visual)
-(util.map-group {:prefix :<localleader>
+;; Replace (Visual)
+(util.map-group {:prefix :<leader>
                  :mode :v}
-                {:s [":s//g<left><left>" "Replace"]})
+                {:r (util.tassign [":s//g<left><left>" "Replace"] {:silent false})})
 
-;; Find and replace all occurences of focused word, in current buffer
-; map('n', '<Leader>S', ':%s/\\<<C-r><C-w>\\>/', { noremap = true })
+;; Undotree
+(util.map-group {:prefix :<leader>}
+                {:u {:name "undo"
+                     :u [(.. (util.cmd-fmt "UndotreeShow")
+                             (util.cmd-fmt "UndotreeFocus"))
+                         "Focus undotree"]
+                     :t [(.. (util.cmd-fmt "UndotreeToggle")
+                             (util.cmd-fmt "UndotreeFocus"))
+                         "Toggle undotree"]}})
+
+;; Delete hidden buffers
+(defn delete-hidden-buffers []
+  (let [visible-bufs (->> (nvim.fn.range 1 (nvim.fn.tabpagenr :$))
+                          (core.map nvim.fn.tabpagebuflist)
+                          (unpack)
+                          (core.concat))]
+    (->> (nvim.fn.range 1 (nvim.fn.bufnr :$))
+         (core.filter
+           (fn [bufnr]
+             (and (nvim.fn.bufexists bufnr)
+                  (= -1 (nvim.fn.index visible-bufs bufnr)))))
+         (#(nvim.ex.bwipeout (unpack $1))))))
+
+(util.map-group {:prefix :<leader>
+                 :silent true}
+                {:o [delete-hidden-buffers "Only (delete hidden buffers) "]})
+
 
 ;; Save file as sudo on files that require root permission
 ; map('c', 'w!!', 'execute \'silent! write !sudo tee % >/dev/null\' <bar> edit!', opts)
