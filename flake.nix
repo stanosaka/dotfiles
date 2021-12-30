@@ -18,7 +18,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.kotokrad = import ./home.nix;
+            home-manager.users.szhou= import ./home.nix;
           }
         { nixpkgs.overlays = [
             nur.overlay

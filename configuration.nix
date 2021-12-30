@@ -28,11 +28,11 @@
   # chattr +C docker-volume.img
   # fallocate -l 20G docker-volume.img
   # mkfs.ext4 docker-volume.img
-  fileSystems."/var/lib/docker" =
-    { device = "/media/docker-volume.img";
-      fsType = "ext4";
-      options = [ "loop" ];
-    };
+  # fileSystems."/var/lib/docker" =
+  #   { device = "/media/docker-volume.img";
+  #     fsType = "ext4";
+  #     options = [ "loop" ];
+  #   };
 
   powerManagement = {
     enable = true;
@@ -43,14 +43,22 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = "nixos";
+  networking.hostName = "k6-nixos";
   networking.networkmanager.enable = true;
   networking.useDHCP = false;
-  networking.interfaces.wlp1s0.useDHCP = true;
+  networking.interfaces.enp6s0.ipv4.addresses = [{
+        address = "192.168.199.19";
+        prefixLength = 28;
+      }];
+    defaultGateway = "192.168.199.1";
+    nameservers = [ "192.168.199.20" "192.168.199.8" ];
+    networkmanager.enable = true;
+  };
+
 
   virtualisation.docker.enable = true;
 
-  time.timeZone = "Asia/Bangkok";
+  time.timeZone = "Australia/Sydney";
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     keyMap = "us";
@@ -74,9 +82,11 @@
     git
   ];
 
-  location.provider = "manual";
-  location.latitude = 9.7486;
-  location.longitude = 100.0206;
+  location = {
+    provider = "manual";
+    latitude = -33.8718;
+    longitude = 151.2494;
+  };
 
   services = {
     gnome.gnome-keyring.enable = true;
@@ -96,8 +106,7 @@
       enable = true;
       dpi = 180;
 
-      layout = "us,ru";
-      xkbOptions = "caps:escape,grp:alt_shift_toggle";
+      layout = "us";
 
       libinput = {
         enable = true;
@@ -126,7 +135,6 @@
       autoRepeatInterval = 18;
       autoRepeatDelay = 250;
 
-      videoDrivers = [ "amdgpu" ];
       deviceSection = ''
         Option "VariableRefresh" "true"
       '';
@@ -179,7 +187,7 @@
   ];
 
   # Users
-  users.users.kotokrad = {
+  users.users.szhou= {
     isNormalUser = true;
     extraGroups = [
       "wheel"

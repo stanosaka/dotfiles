@@ -52,7 +52,7 @@ import XMonad.Actions.WorkspaceNames (getWorkspaceName)
 
 
 ----------------------------mupdf--------------------------------------------
-myHomeDir = "/home/kotokrad"
+myHomeDir = "/home/szhou"
 
 myConfigDir = myHomeDir ++ "/.config/xmonad"
 
@@ -216,7 +216,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- dmenu: drun
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_w),
+  , ((modMask, xK_d),
      spawn myDrun)
 
   -- dmenu: run
@@ -285,7 +285,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Close focused window.
   -- , ((modMask .|. shiftMask, xK_c),
-  , ((modMask, xK_q),
+  , ((modMask .|. shiftMask, xK_q),
      kill)
 
   -- Cycle through the available layout algorithms.

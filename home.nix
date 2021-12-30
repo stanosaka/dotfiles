@@ -170,8 +170,8 @@ in
   ];
 
   home = {
-    username = "kotokrad";
-    homeDirectory = "/home/kotokrad";
+    username = "szhou";
+    homeDirectory = "/home/szhou";
     packages = defaultPkgs ++ xfcePkgs ++ fontPkgs ++ xmonadPkgs;
   };
 

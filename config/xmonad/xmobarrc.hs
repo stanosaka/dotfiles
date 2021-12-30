@@ -64,30 +64,30 @@ Config {
 
                     , Run Date "%a %b %_d %I:%M" "date" 300
 
-                    , Run Kbd [("us", "US"), ("ru", "RU")]
+                    , Run Kbd [("us", "US")]
 
-                    , Run Com "/home/kotokrad/.config/xmonad/padding-icon.sh" ["panel"] "trayerpad" 10
+                    , Run Com "/home/szhou/.config/xmonad/padding-icon.sh" ["panel"] "trayerpad" 10
 
-                    , Run BatteryP       [ "BAT0" ]
-                                         [ "--template" , "<fc=#427b58><fn=1>  </fn></fc> <acstatus>"
-                                         , "--Low"      , "10"        -- units: %
-                                         , "--High"     , "80"        -- units: %
-                                         , "--low"      , "#cc241d"
-                                         , "--normal"   , "#3c3836"
-                                         , "--high"     , "#3c3836"
+                    -- , Run BatteryP       [ "BAT0" ]
+                    --                      [ "--template" , "<fc=#427b58><fn=1>  </fn></fc> <acstatus>"
+                    --                      , "--Low"      , "10"        -- units: %
+                    --                      , "--High"     , "80"        -- units: %
+                    --                      , "--low"      , "#cc241d"
+                    --                      , "--normal"   , "#3c3836"
+                    --                      , "--high"     , "#3c3836"
 
-                                         , "--" -- battery specific options
-                                                   -- discharging status
-                                                   , "-o"        , "<left>% (<timeleft>)"
-                                                   -- AC "on" status
-                                                   , "-O"        , "<left>%" -- 50fa7b
-                                                   -- charged status
-                                                   , "-i"        , "<left>%"
-                                                   -- , "-lows"     , "  <left> (<timeleft>)"
-                                                   -- , "-mediums"  , "  <left> (<timeleft>)"
-                                                   -- , "-highs"    , "  ZZ <left> (<timeleft>)"
-                                                   -- , "--off-icon-pattern", "<acstatus>"
-                                         ] 50
+                    --                      , "--" -- battery specific options
+                    --                                -- discharging status
+                    --                                , "-o"        , "<left>% (<timeleft>)"
+                    --                                -- AC "on" status
+                    --                                , "-O"        , "<left>%" -- 50fa7b
+                    --                                -- charged status
+                    --                                , "-i"        , "<left>%"
+                    --                                -- , "-lows"     , "  <left> (<timeleft>)"
+                    --                                -- , "-mediums"  , "  <left> (<timeleft>)"
+                    --                                -- , "-highs"    , "  ZZ <left> (<timeleft>)"
+                    --                                -- , "--off-icon-pattern", "<acstatus>"
+                    --                      ] 50
 
                     ]
        , sepChar = "%"
