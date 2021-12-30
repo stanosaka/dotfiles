@@ -10,16 +10,32 @@
       ./hardware-configuration.nix
     ];
 
-  boot.kernelParams = ["amdgpu.backlight=0" "acpi_backlight=none"];
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.extraModprobeConfig = ''
-    # Function/media keys:
-    #   0: Function keys only.
-    #   1: Media keys by default.
-    #   2: Function keys by default.
-    options hid_apple fnmode=2
-  '';
+  # Use the systemd-boot EFI boot loader.
+  boot.loader = {
+    #systemd-boot.enable = true;
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      extraEntries = ''
+        menuentry "Hackintosh BOOTx64" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root 0AAD-D8F2
+          chainloader /EFI/BOOT/BOOTx64.efi
+        }
+      '';
+      version = 2;
+      #useOSProber = true;
+    };
+  };
+
 
   # Dedicated file system for Docker to prevent btrfs corruption
   # https://gist.github.com/hopeseekr/cd2058e71d01deca5bae9f4e5a555440
