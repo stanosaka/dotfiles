@@ -113,7 +113,6 @@ myManageHook = composeAll
     , className =? "org.wezfurlong.wezterm"       --> viewShift myWs2Console
     , className =? "vim-ide"                      --> viewShift myWs3Code
     , className =? "Thunar"                       --> viewShift myWs4FS
-    , className =? "Steam"                        --> viewShift myWs4FS
     , className =? "TelegramDesktop"              --> viewShift myWs5Chat
     , className =? ".blueman-manager-wrapped"     --> viewShift myWs6Misc
     , className =? "Mate-calc"                    --> doCenterFloat

@@ -10,14 +10,13 @@ let
     firefox
     wezterm
     tdesktop             # telegram messaging client
-    transmission-gtk
     vlc                  # media player
     simplescreenrecorder
     arandr               # simple GUI for xrandr
     asciinema            # record the terminal
     insomnia             # rest client with graphql support
-    # feh
-    # pcmanfm
+    feh
+    pcmanfm
     simplescreenrecorder
     lxappearance
     mate.mate-calc
@@ -55,8 +54,6 @@ let
   # TEMP
   # needed for course homework
   # https://www.coursera.org/learn/programming-languages
-    ruby_2_6
-    rubyPackages.solargraph
 
   # Nix
     any-nix-shell        # fish support for nix shell
@@ -70,19 +67,17 @@ let
     openssl
     pkgconfig
     tree-sitter
-    racket
-    rustup
+#    racket
+#    rustup
     fennel               # Fennel lang (for neovim config)
-    janet
-    clojure-lsp
     nodejs
-    yarn
-    nodePackages.typescript
-    nodePackages.typescript-language-server
+#    yarn
+#    nodePackages.typescript
+#    nodePackages.typescript-language-server
     nodePackages.prettier
-    deno
+#    deno
     haskellPackages.haskell-language-server
-    pgweb                # PostgreSQL client
+#    pgweb                # PostgreSQL client
 
     # other haskell packages:
     # brittany             # code formatter
@@ -97,10 +92,10 @@ let
     # audacious            # simple music player
     # bitwarden-cli        # command-line client for the password manager
     # bottom               # alternative to htop & ytop
-    # calibre              # e-book reader
+    calibre              # e-book reader
     # dconf2nix            # dconf (gnome) files to nix converter
-    # discord              # chat client for dev stuff
-    # dmenu                # application launcher
+    discord              # chat client for dev stuff
+    dmenu                # application launcher
     # dive                 # explore docker layers
     # duf                  # disk usage/free utility
     # element-desktop      # a feature-rich client for Matrix.org
@@ -114,8 +109,8 @@ let
     # pgcli                # modern postgres client
     # playerctl            # music player controller
     # prettyping           # a nicer ping
-    # slack                # messaging client
-    # spotify              # music source
+    slack                # messaging client
+    spotify              # music source
     # terminator           # great terminal multiplexer
     # tex2nix              # texlive expressions for documents
     # yad                  # yet another dialog - fork of zenity
@@ -177,22 +172,21 @@ in
 
   programs = {
     zsh.enable = true;
-    zsh.initExtra = ''
-      export PATH="$PATH":"$HOME/.npm-packages/bin"
-      export JANET_PATH="$HOME/.janet"
-      export KEYTIMEOUT=1
-      any-nix-shell zsh --info-right | source /dev/stdin
-      bindkey -v
-      bindkey '^R' history-incremental-search-backward
-      bindkey '^[[7~' beginning-of-line
-      bindkey '^[[8~' end-of-line
+    zsh.interactiveShellInit = ''
+      # z - jump around
+      source ${pkgs.fetchurl {url = "https://github.com/rupa/z/raw/2ebe419ae18316c5597dd5fb84b5d8595ff1dde9/z.sh"; sha256 = "0ywpgk3ksjq7g30bqbhl9znz3jh6jfg8lxnbdbaiipzgsy41vi10";}}
+      export ZSH=${pkgs.oh-my-zsh}/share/oh-my-zsh
+      export ZSH_THEME="robbyrussell"
+      plugins=(git)
+      source $ZSH/oh-my-zsh.sh
     '';
     zsh.enableSyntaxHighlighting = true;
-    zsh.defaultKeymap = "viins";
+    zsh.enableAutosuggestions = true;
     zsh.shellAliases = {
-      gs = "git status";
-      ww = "vim -c VimwikiIndex";
-      jr = ''janet -e "(import spork/netrepl) (netrepl/server)"'';
+      gis = "git status -s";
+      k = "kubectl";
+      ls = "ls --color";
+      vim = "nvim";
     };
 
     git.enable = true;

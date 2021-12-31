@@ -69,4 +69,5 @@ fi
 # xbindkeys
 
 xset r rate 250 50
-setxkbmap -layout us,ru -option 'grp:ctrl_space_toggle'
+
+#setxkbmap -layout us
