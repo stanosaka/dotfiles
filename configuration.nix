@@ -66,10 +66,8 @@
         address = "192.168.199.19";
         prefixLength = 28;
       }];
-    defaultGateway = "192.168.199.1";
-    nameservers = [ "192.168.199.20" "192.168.199.8" ];
-    networkmanager.enable = true;
-  };
+  networking.defaultGateway = "192.168.199.1";
+  networking.nameservers = [ "192.168.199.20" "192.168.199.8" ];
 
 
   virtualisation.docker.enable = true;
